@@ -6,17 +6,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Web App</title>
+    <style>
+        /* Styles for the lock popup */
+        .lock-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        /* Styles for overlay background */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
     <script>
-        // Check if the page is loaded in an iframe
-        if (window.self !== window.top && window.location.href.indexOf("/chat.html") === -1) {
-            // Redirect to chat.html
-            window.top.location.href = "/chat.html";
+        // Function to show the lock popup
+        function showLockPopup() {
+            document.getElementById('lock-popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        // Function to hide the lock popup
+        function hideLockPopup() {
+            document.getElementById('lock-popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Function to check the entered code
+        function checkCode() {
+            var enteredCode = document.getElementById('code-input').value;
+
+            if (enteredCode === '1001') {
+                // If the code is correct, show the content
+                document.getElementById('content').style.display = 'block';
+                hideLockPopup();
+            } else {
+                // If the code is incorrect, redirect to index.html
+                window.location.href = '/index.html';
+            }
         }
     </script>
-    <script src="https://minnit.chat/js/embed.js" defer></script>
 </head>
 <body>
-    <minnit-chat data-chatname="https://organizations.minnit.chat/886810271726687/Main?embed&nickname=" data-style="width:100vw;height:100vh;position:fixed;top:0;left:0;margin:0;padding:0;"></minnit-chat>
-    <p class="powered-by-minnit"></p>
+    <!-- Lock Popup -->
+    <div id="lock-popup" class="lock-popup">
+        <label for="code-input">Enter the code:</label>
+        <input type="text" id="code-input">
+        <button onclick="checkCode()">Unlock</button>
+    </div>
+
+    <!-- Overlay background -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Your web app content -->
+    <div id="content" style="display: none;">
+        <!-- Embedded Chat Script -->
+        <script src="https://minnit.chat/js/embed.js" defer></script>
+        <minnit-chat data-chatname="https://organizations.minnit.chat/886810271726687/Main?embed&nickname=" data-style="width:100vw;height:100vh;position:fixed;top:0;left:0;margin:0;padding:0;"></minnit-chat>
+        <p class="powered-by-minnit"></p>
+    </div>
+
+    <!-- Button to show the lock popup -->
+    <button onclick="showLockPopup()">Unlock Content</button>
 </body>
 </html>
