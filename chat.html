@@ -7,7 +7,18 @@
 
 
 
-<!-- index.html -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- chat.html -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,9 +28,9 @@
     <title>Your Web App</title>
     <script>
         // Check if the page is accessed directly
-        if (window.location.href.indexOf("index.html") === -1) {
-            // Redirect to index.html
-            window.location.href = "index.html";
+        if (window.location.href.indexOf("/chat.html") === -1) {
+            // Redirect to chat.html
+            window.location.href = "/chat.html";
         }
     </script>
 </head>
@@ -27,4 +38,3 @@
     <!-- Your web app content goes here -->
 </body>
 </html>
-
